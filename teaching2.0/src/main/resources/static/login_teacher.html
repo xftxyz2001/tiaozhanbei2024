@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>跨模态图文课堂教学辅助评判系统</title>
+    <meta name="keywords" content="跨模态图文课堂教学辅助评判系统">
+    <meta name="description" content="跨模态图文课堂教学辅助评判系统">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <script src="./js/vue.js"></script>
+    <script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+<!--    <script type="text/javascript" src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>-->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+
+</head>
+
+<body class="gray-bg" >
+    <div class="zxxc">
+    <div class="middle-box text-center loginscreen  animated fadeInDown" >
+        <div >
+            <div>
+
+                <h1 class="logo-name">H+</h1>
+
+            </div>
+            <h3>欢迎使用 请登录</h3>
+
+            <form class="m-t" role="form" action="www.localhost:8080/login/LoginSuccess" method="post" >
+                <div class="form-group">
+                    <input  class="form-control" placeholder="用户名" name="id" required="" v-model="id">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码"  name="password" required="" v-model="password">
+                </div>
+                <button v-on:click="login" class="btn btn-primary block full-width m-b">登 录</button>
+<!--                <input type="submit"  value="提交">-->
+
+                <p class="text-muted text-center"> <a href="register_reset.html#"><small>修改密码</small></a> | <a href="register.html">注册一个新账号</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+<script>
+    // 将vue挂载到id为home的根元素上
+
+    var vm = new Vue({
+        el: ".zxxc",
+        data: {
+
+            id:'',
+            password:''
+
+        },
+        methods: {
+            login:function(){
+                console.log(this.id);
+                const params = {
+                    id: this.id,
+                    password: this.password
+                };
+                axios.post('/login/LoginTeacher', null, { params: params }).then(res => {
+
+                        location.href = "/index_teacher.html";
+
+
+                });
+            }
+        }
+        // mounted() {
+        //     console.log(0.0);
+        // },
+        // created() {},
+    });
+</script>
+
+
+
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:23 GMT -->
+</html>

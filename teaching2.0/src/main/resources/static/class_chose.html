@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/mailbox.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:21 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 收件箱</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="./js/vue.js"></script>
+</head>
+
+<body class="gray-bg">
+    <div class="zxxc">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content mailbox-content">
+                        <div class="file-manager">
+<!--                            <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">写信</a>-->
+                            <div class="space-25"></div>
+                            <h5>班级</h5>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li>
+                                    <a href="mailbox.html">  <i class="fa fa-certificate"></i> 班级A <span class="label label-warning pull-right">16</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i>  班级B</a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i>  班级B</a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i>  班级C <span class="label label-danger pull-right">2</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i>  班级D</a>
+                                </li>
+                            </ul>
+<!--                            <h5>分类</h5>-->
+<!--                            <ul class="category-list" style="padding: 0">-->
+<!--                                <li>-->
+<!--                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-navy"></i> 工作</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-danger"></i> 文档</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-primary"></i> 社交</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-info"></i> 广告</a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-warning"></i> 客户端</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+
+<!--                            <h5 class="tag-title">标签</h5>-->
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 animated fadeInRight">
+                <div class="mail-box-header">
+
+                    <form method="get" action="http://www.zi-han.net/theme/hplus/index.html" class="pull-right mail-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" name="search" placeholder="搜索学生学号">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    搜索
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <h2>班级内学生</h2>
+                    <div class="mail-tools tooltip-demo m-t-md">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>
+                            </button>
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i>
+                            </button>
+
+                        </div>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新学生列表"><i class="fa fa-refresh"></i> 刷新</button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读"><i class="fa fa-eye"></i>
+                        </button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要"><i class="fa fa-exclamation"></i>
+                        </button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件"><i class="fa fa-trash-o"></i>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="mail-box">
+
+                    <table class="table table-hover table-mail">
+                        <tbody>
+                            <tr class="unread" v-for="(item,index) in students" key="index">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">{{item[1]}}</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">{{item[0]}}</a>
+                                </td>
+                                <td class="">202100001</i>
+                                </td>
+                                <td class="text-right mail-date">昨天 10:20</td>
+                            </tr>
+                            <tr class="unread">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks" checked>
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生B</a>
+                                </td>
+                                <td class="">202100002</td>
+                                <td class="text-right mail-date">上午10:57</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生C</a>
+                                </td>
+                                <td class="">202100003</td>
+                                <td class="text-right mail-date">上午9:21</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生D</a>
+                                </td>
+                                <td class="">202100004</td>
+                                <td class="text-right mail-date">中午12:24</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生E</a>
+                                </td>
+                                <td class="">202100005</i>
+                                </td>
+                                <td class="text-right mail-date">上午6:48</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生F</a>
+                                </td>
+                                <td class="">202100006
+                                </td>
+                                <td class="text-right mail-date">昨天 10:20</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生G</a>
+                                </td>
+                                <td class="">202100007</td>
+                                <td class="text-right mail-date">上午10:57</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生H</a>
+                                </td>
+                                <td class="">20210008</td>
+                                <td class="text-right mail-date">上午9:21</td>
+                            </tr>
+                            <tr class="read">
+                                <td class="check-mail">
+                                    <input type="checkbox" class="i-checks">
+                                </td>
+                                <td class="mail-ontact"><a href="mail_detail.html">班级A</a>
+                                </td>
+                                <td class="mail-subject"><a href="mail_detail.html">学生I</a>
+                                </td>
+                                <td class="">20210009</td>
+                                <td class="text-right mail-date">中午12:24</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+        var vm = new Vue({
+            el: ".zxxc",
+            data: {
+                title:'设置看图写话的教学目标内容',
+                id:' ',
+                password:' ',
+                word:'test_word1',
+                sentence:'test_sentence',
+                tune:'test_tune',
+                click_count:1
+
+            },
+            methods: {
+                login:function(){
+                    console.log(this.id);
+                    const params = {
+                        id: this.id,
+                        password: this.password
+                    };
+                    axios.post('/login/LoginSuccess', null, { params: params }).then(res => {
+                        // console.log(res.getItem("role"))
+                        if(res.data=="1"){
+                            location.href = "/index_student.html";
+                        }else if(res.data=='2'){
+                            // console.log(sessionStorage.getItem("name"));
+                            location.href='/index_teacher.html';
+                        }
+
+                    });
+                },
+                click_next:function(){
+                    this.click_count= this.click_count+1;
+                },
+                click_pre:function(){
+                    this.click_count= this.click_count-1;
+                },
+                one_task:function(){
+
+                }
+            },
+            watch:{
+                word:function (){
+                    console.log(this.word)
+                },
+                click_count:function(){
+                    if(this.click_count==1){
+                        document.getElementById("second_fieldset").style.display="none";
+                        document.getElementById("first_fieldset").style.display="inline";
+                    }else if (this.click_count==2){
+                        document.getElementById("first_fieldset").style.display="none";
+                        document.getElementById("third_fieldset").style.display="none";
+                        document.getElementById("second_fieldset").style.display="inline";
+                    }else if(this.click_count==3){
+                        document.getElementById("second_fieldset").style.display="none";
+                        document.getElementById("forth_fieldset").style.display="none";
+                        document.getElementById("third_fieldset").style.display="inline";
+                    }else if(this.click_count==4){
+                        document.getElementById("third_fieldset").style.display="none";
+                        document.getElementById("last_button_iframe").style.display="inline";
+                        document.getElementById("forth_fieldset").style.display="inline";
+                    }
+                }
+
+            },
+
+            mounted() {
+
+            },
+            created() {}
+        });
+    </script>
+
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/mailbox.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:22 GMT -->
+</html>

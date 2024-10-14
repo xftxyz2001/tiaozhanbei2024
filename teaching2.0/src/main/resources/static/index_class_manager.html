@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H+ 后台主题UI框架 - 项目</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="./js/vue.js"></script>
+    <script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+    <style type="text/css">
+        * {font-family:arial,simsun !important;}
+    </style>
+</head>
+
+
+
+
+
+
+
+
+<body class="gray-bg">
+
+    <div class="zxxc_classManager">
+
+<!--        修改班级信息-->
+        <div class="modal fade" id="createFileMModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createFileTitle">修改班级名</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">班级名</label>
+                                <input v-model="classNameNew" type="text" autofocus class="form-control" id="fileName">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="classNameChangeClick()" class="btn btn-primary" id="createFileSureBut">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        添加班级信息-->
+        <div class="modal fade" id="AddClass" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AddClassTitle">添加班级</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">班级名</label>
+                                <input v-model="ClassCreateName" type="text" autofocus class="form-control" id="ClassCreateName">
+                                <label for="fileName" class="col-form-label">课程名</label>
+                                <input v-model="ClassCreateCourse" type="text" autofocus class="form-control" id="ClassCreateNameCourse">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="AddClassNameClick()" class="btn btn-primary" id="AddClassNameClick">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--        删除班级信息-->
+        <div class="modal fade" id="DeleteClassModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteClassTitle">删除班级</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">班级名:{{ClassDeleteCheck}}</label>
+
+<!--                                <input v-model="ClassCreateName" type="text" autofocus class="form-control" id="ClassCreateName">-->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="DeleteClassClick()" class="btn btn-primary" id="DeleteClassClick">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--        修改班级学生信息-->
+        <div class="modal fade" id="changeclassStu" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changeclassStuInformation">修改班级学生信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">学生用户名</label>
+                                <input v-model="stuSnameNew" type="text" autofocus class="form-control" id="stuSnameNew">
+                                <label for="fileName" class="col-form-label">学生名</label>
+                                <input v-model="stuNameNew" type="text" autofocus class="form-control" id="stuNameNew">
+                                <label for="fileName" class="col-form-label">学生密码</label>
+                                <input v-model="stuPassword" type="text" autofocus class="form-control" id="stuPassword">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="classStuInformationChangeClick()" class="btn btn-primary" id="classStuNameChange">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--        添加班级学生信息-->
+        <div class="modal fade" id="addClassStu" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addClassStuInformation">添加班级学生信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">学生用户名</label>
+                                <input v-model="stuSnameNew" type="text" autofocus class="form-control" id="stuSnameNewAdd">
+                                <label for="fileName" class="col-form-label">学生名</label>
+                                <input v-model="stuNameNew" type="text" autofocus class="form-control" id="stuNameNewAdd">
+                                <label for="fileName" class="col-form-label">学生密码</label>
+                                <input v-model="stuPassword" type="text" autofocus class="form-control" id="stuPasswordAdd">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="classStuInformationAddClick()" class="btn btn-primary" id="classStuNameAdd">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--        删除班级学生信息-->
+        <div class="modal fade" id="deleteClassStu" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteClassStuInformation">删除的班级学生信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="fileName" class="col-form-label">学生用户名</label>
+                                <input v-model="ClassStuDeleteCheck" type="text" autofocus class="form-control" id="ClassStuDeleteCheck">
+                                <label for="fileName" class="col-form-label">学生名</label>
+                                <input v-model="ClassStuNameDeleteCheck" type="text" autofocus class="form-control" id="ClassStuNameDeleteCheck">
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="DeleteClassStuClick()" class="btn btn-primary" id="classStuNameDelete">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        <script>-->
+<!--            // function ShowCreateModal(title){-->
+<!--            //     $("#createFileTitle").text(title);-->
+<!--            //     $('#createFileMModal').modal('show');-->
+<!--            // }-->
+<!--            // 关闭弹框， 获取输入值，然后执行逻辑-->
+<!--            // $("#createFileSureBut").click(function (){-->
+<!--            //     $("#createFileMModal").modal("hide");-->
+<!--            //     var inputFileName = $("#fileName").val();-->
+<!--            //     console.log("input file name : "+inputFileName);-->
+<!--            // });-->
+<!--        </script>-->
+
+
+
+
+
+
+
+        <div class="wrapper wrapper-content animated fadeInUp">
+
+
+            <div class="row" id="classManager_Check" >
+                <div class="col-sm-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>所有班级</h5>
+                            <div class="ibox-tools">
+                                <button v-on:click="AddClassButton()" class="btn btn-primary btn-xs">创建新班级</button>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row m-b-sm m-t-sm">
+                                <div class="col-md-1">
+                                    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="请输入班级名" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-list">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr v-for="(items,index) in classes">
+                                        <td class="project-title">
+                                            <a href="project_detail.html">班级名称：{{items.className}}</a>
+
+                                            <br/>
+                                        </td>
+                                        <td class="project-title">
+                                            <a href="project_detail.html">课程名称：看图写话</a>
+
+                                            <br/>
+                                        </td>
+                                        <td class="project-actions">
+                                            <button v-on:click="classStuStart(items)" type="button" class="btn btn-success">查看</button>
+                                            <button v-on:click="classNameChange(items)" type="button" class="btn btn-warning" >修改</button>
+                                            <button v-on:click="classDelete(items)" type="button" class="btn btn-danger"  >删除</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row"  id="classStuCheck" >
+                <div class="col-sm-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>班级所有学生</h5>
+                            <div class="ibox-tools">
+                                <button v-on:click="addClassStufunc()" class="btn btn-primary btn-xs">创建新学生信息</button>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row m-b-sm m-t-sm">
+                                <div class="col-md-1">
+                                    <button type="button" id="loading-example-btn2" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="请输入写话主题" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-list">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr v-for="(items,index) in classStu">
+                                        <td class="project-title">
+                                            <a href="project_detail.html">学生用户名：{{items.studentSname}}</a>
+                                            <br/>
+                                        </td>
+                                        <td class="project-people">
+                                            <span>学生姓名：{{items.studentName}}</span>
+                                            <br/>
+                                        </td>
+                                        <td class="project-people">
+                                            <span>学生密码：{{items.studentPassword}}</span>
+                                            <br/>
+                                        </td>
+                                        <td class="project-actions">
+                                            <button v-on:click="showStuChange(items)"  type="button" class="btn btn-warning">修改</button>
+                                            <button  v-on:click="DeleteClassStu(items)" type="button" class="btn btn-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </body>
+<script>
+    var vm = new Vue({
+        el: ".zxxc_classManager",
+        data: {
+            classes:[],
+            classStu:[],
+            stuTask:[],
+            answer:"",
+            classChangeId:"",
+            classNameNew:"",
+            classLookId:"",
+            stuChangeSname:"",
+            stuSnameNew:"",
+            stuNameNew:"",
+            stuPassword:"",
+            ClassCreateName:"",
+            ClassCreateCourse:"",
+            ClassDeleteCheck:"",
+            ClassStuDeleteCheck:"",
+            ClassStuNameDeleteCheck:""
+        },
+        methods: {
+            classStart:function(){
+                axios.post('/ClassRecord/getClasses',null).then(res =>{
+                    this.classes=res.data;
+                    console.log("index_class_manager-搜索到的教师名下班级:"+this.classes[0]);
+                    console.log(this.classes[0]);
+                });
+            },
+            classStuStart:function(items){
+                this.classLookId=items.classId;
+                const params = {
+                    classId:items.classId
+                };
+                axios.post('/ClassStuManager/getClassStu',null,{params:params}).then(res =>{
+                    this.classStu=res.data;
+                    console.log("index_class_manager-搜索到的教师名下班级:"+this.classes[0]);
+                    console.log(this.classStu[0]);
+                });
+                document.getElementById("classStuCheck").style.display='inline';
+                document.getElementById("classManager_Check").style.display='none'
+            },
+            classNameChange:function(items){
+                this.classChangeId=items.classId;
+                $('#createFileMModal').modal('show');
+            },
+            classNameChangeClick:function(){
+                const params = {
+                    classChangeId:this.classChangeId,
+                    classNameNew:this.classNameNew
+                };
+                axios.post('/ClassStuManager/changeClassName',null,{params:params}).then(res =>{
+                    $("#createFileMModal").modal("hide");
+                });
+                for(i=0;i<this.classes.length;i++){
+                    if(this.classes[i].classId==this.classChangeId){
+                        this.classes[i].className=this.classNameNew;
+                    }
+                }
+
+            },
+            showStuChange:function(items){
+                this.stuChangeSname=items.studentSname;
+                $('#changeclassStu').modal('show');
+            },
+            classStuInformationChangeClick:function(){
+                const params = {
+                    studentSnameChange:this.stuChangeSname,
+                    studentSname:this.stuSnameNew,
+                    studentName:this.stuNameNew,
+                    studentPassword:this.stuPassword
+                };
+                axios.post('/ClassStuManager/changeClassStuInformation',null,{params:params}).then(res =>{
+                    $("#changeclassStu").modal("hide");
+                });
+                for(i=0;i<this.classStu.length;i++){
+                    if(this.classStu[i].studentSname==this.stuChangeSname){
+                        this.classStu[i].studentSname=this.stuSnameNew;
+                        this.classStu[i].studentName=this.stuNameNew;
+                        this.classStu[i].studentPassword=this.stuPassword;
+                    }
+                }
+            },
+            AddClassButton:function(){
+                console.log("创建班级ing");
+                $("#AddClass").modal('show');
+            },
+            AddClassNameClick:function(){
+                if(this.ClassCreateCourse=="看图写话"){
+                    const params = {
+                        ClassCreateName:this.ClassCreateName,
+                    };
+                    axios.post('/ClassStuManager/addClassInformation',null,{params:params}).then(res =>{
+                        $("#AddClass").modal("hide");
+                        this.classes.push({classId:res.data,className:this.ClassCreateName,teacherSname:this.id});
+                    });
+                }else{
+                    const params = {
+                        ClassCreateName:this.ClassCreateName,
+                    };
+                    axios.post('/ClassStuManager/createOtherClass',null,{params:params}).then(res =>{
+                        $("#AddClass").modal("hide");
+
+                    });
+                }
+
+
+            },
+            addClassStufunc:function(){
+                $('#addClassStu').modal("show");
+            },
+            classStuInformationAddClick:function(){
+                const params = {
+                    studentSname:this.stuSnameNew,
+                    studentName:this.stuNameNew,
+                    studentPassword:this.stuPassword,
+                    classId:this.classLookId
+                };
+                axios.post('/ClassStuManager/addClassStuInformation',null,{params:params}).then(res =>{
+                    $("#addClassStu").modal("hide");
+                    this.classStu.push({classId:this.classLookId,studentName:this.stuNameNew,studentPassword:this.stuPassword,studentSname:this.stuSnameNew});
+                });
+            },
+            classDelete:function(items){
+                this.ClassDeleteCheck=items.classId;
+                console.log("填入classid"+this.ClassDeleteCheck+" ,items.classId:"+items.classId);
+                $('#DeleteClassModal').modal("show");
+            },
+            DeleteClassClick:function(){
+                const params={
+                    ClassDeleteCheck:this.ClassDeleteCheck
+                }
+
+                console.log(this.classes);
+                axios.post('/ClassStuManager/DeleteClass',null,{params:params}).then(res =>{
+                    $("#DeleteClassModal").modal("hide");
+                    this.classes=this.classes.filter(function(items){
+                        return items.classId!==params.ClassDeleteCheck;
+                    });
+                });
+
+            },
+            DeleteClassStu:function(items){
+                this.ClassStuDeleteCheck=items.studentSname;
+                this.ClassStuNameDeleteCheck=items.studentName;
+                $('#deleteClassStu').modal("show");
+            },
+            DeleteClassStuClick:function(){
+                const params={
+                    ClassStuDeleteCheck:this.ClassStuDeleteCheck
+                }
+
+                console.log(this.classes);
+                axios.post('/ClassStuManager/deleteClassStu',null,{params:params}).then(res =>{
+                    $("#deleteClassStu").modal("hide");
+                    this.classStu=this.classStu.filter(function(items){
+                        return items.studentSname!==params.ClassStuDeleteCheck;
+                    });
+                });
+            }
+        },
+        mounted(){
+            document.getElementById("classManager_Check").style.display='inline';
+            document.getElementById("classStuCheck").style.display='none';
+
+            console.log("打开页面的准备");
+            this.classStart();
+
+        }
+    });
+</script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<script>
+    // $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
+</script>
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.teacher.mapper.TaskSubmitMapper">
+
+    <insert id="Submit" parameterType="com.example.teacher.entity.TaskOne">
+        insert into classtask  values(#{classId},#{picture},#{classTaskId},#{compositionTitle},#{compositionWord},#{compositionSentence},#{compositionWordStep},#{compositionSentenceStep},#{sceneTitle},#{sceneWord},#{sceneSentence},#{sceneWordStep},#{sceneSentenceStep},#{sceneFirstNum},#{sceneFirstOrientation},#{sceneSecondNum},#{sceneSecondOrientation},#{sceneThirdNum},#{sceneThirdOrientation});
+    </insert>
+
+    <insert id="submitStudent" parameterType="com.example.teacher.entity.studentTaskOne">
+        insert into studentTask  values(#{studentTaskId},#{classTaskId},#{finishCheck},#{studentSname},#{firstScore},#{secondScore},#{thirdScore});
+    </insert>
+
+    <select id="searchstuByclassid" parameterType="int" resultType="com.example.teacher.entity.classStudent">
+            select * from student where classId=#{id};
+    </select>
+    <select id="searchStubyclass"  parameterType="com.example.teacher.entity.teacherClass" resultType="com.example.teacher.entity.Studentfront" >
+        select * from student where teacherid=#{id} and teacherclass=#{classes};
+    </select>
+
+    <select id="searchByid"  parameterType="String" resultType="com.example.teacher.entity.TaskOne" >
+        select * from classTask,(select classTaskId,studentTaskId from studentTask where studentSname=#{studentSname} and finishCheck = 0) as b where b.classTaskId=classTask.classTaskId;
+    </select>
+
+    <select id="searchfinishByid" parameterType="String" resultType="com.example.teacher.entity.TaskOne">
+        select * from classTask,(select classTaskId,studentTaskId from studentTask where studentSname=#{studentSname} and finishCheck = 1) as b where b.classTaskId=classTask.classTaskId;
+    </select>
+
+    <select id="searchStuTask"  parameterType="String" resultType="com.example.teacher.entity.TaskOne" >
+        select * from classTask,(select classTaskId,studentTaskId from studentTask where studentTaskId =#{studentTaskId}) as b where b.classTaskId=classTask.classTaskId;
+    </select>
+
+    <insert id="submitTaskPiece"  >
+        insert into studenttaskpiece values(#{taskPiece_id},#{studentTaskId},#{taskPiece})
+    </insert>
+
+    <insert id="inTaskPiece" parameterType="com.example.teacher.entity.StuTaskPiece">
+        insert into studenttaskpiece value(#{taskPiece_id},#{studentTaskId},#{taskPiece});
+    </insert>
+    <insert id="startTask"  parameterType="com.example.teacher.entity.TaskDetail"   >
+        insert into taskdetail value(#{id},#{QSsentence},#{turncount})
+    </insert>
+
+    <select id="checkTask" parameterType="String" resultType="Integer">
+        select count(*) from taskdetail where id=#{id};
+    </select>
+
+    <select id="searchDetail" parameterType="String" resultType="com.example.teacher.entity.TaskDetail">
+        select * from taskdetail where id=#{id} order by id asc;
+    </select>
+
+    <insert id="writeDetail"  parameterType="com.example.teacher.entity.TaskDetail"   >
+        insert into taskdetail value(#{id},#{QSsentence},#{turncount})
+    </insert>
+
+    <update id="writeFinish">
+        update studenttask set finishCheck=1 where studentTaskId=#{StuTaskId}
+    </update>
+
+    <select id="searchAllStudent" resultType="com.example.teacher.entity.classStudent">
+        select a.classId,a.studentName,b.className,a.studentSname from student as a left join class as b on a.classId = b.classId;
+    </select>
+
+
+
+<!--    <select id="queryById"  parameterType="String" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where id= #{id}-->
+<!--    </select>-->
+
+<!--    <insert id="add" parameterType="com.example.teacher.entity.UserLogin">-->
+<!--        insert into roles values (#{username},#{password})-->
+<!--    </insert>-->
+
+<!--    <select id="queryByName" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where username = #{username}-->
+<!--    </select>-->
+
+</mapper>

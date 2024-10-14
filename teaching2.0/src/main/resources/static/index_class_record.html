@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 项目</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="./js/vue.js"></script>
+    <script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+    <style type="text/css">
+        * {font-family:arial,simsun !important;}
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="zxxc_classRecord">
+
+
+
+
+
+
+
+
+
+
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div   id="classchose" class="row" >
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>所有班级</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入班级名" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-list">
+
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr v-for="(items,index) in classes">
+
+                                        <td  class="project-title">
+                                            <a href="project_detail.html">班级：{{items.className}}</a>
+                                            <br/>
+
+                                        </td>
+                                        <td class="project-actions">
+                                            <button v-on:click="classCheck(items)" type="button" class="btn btn-success">查看</button>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row" id="classTaskes" >
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>所有班级任务</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn2" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入写话主题" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-list">
+
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr v-for="(items,index) in classTask">
+                                    <td class="project-title">
+                                        <a href="project_detail.html">班级任务：{{items.compositionTitle}}</a>
+
+                                        <br/>
+
+                                    </td>
+                                    <td class="project-actions">
+                                        <button v-on:click="classTaskCheck(items)" type="button" class="btn btn-success">查看</button>
+<!--                                        <button  type="button" class="btn btn-warning">修改</button>-->
+                                        <button v-on:click="classTaskDeleteCheck(items)" type="button" class="btn btn-danger">删除</button>
+
+
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--        删除班级任务-->
+        <div class="modal fade" id="deleteClassTask" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteClassStuInformation">删除的班级任务信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label  for="FileName" class="col-form-label"> 看图写话主题： {{compoTitle}}</label>
+                                <div id="FileName"></div>
+                                <label  class="col-form-label"> 看图写话字词：{{composentence}} </label>
+                                <div id="FileName2"></div>
+                                <label  class="col-form-label"> 看图写话字词：{{compoword}} </label>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="deleteClassTaskClick()" class="btn btn-primary" id="classStuNameDelete">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="stuTaskCheck">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>班级任务中所有学生任务</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn3" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入学生用户名" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-list">
+
+                            <table id="stuTaskTable" class="table table-hover">
+                                <tbody>
+                                <tr v-for="(items,index) in stuTask">
+                                    <td class="project-title">
+                                        <a>学生姓名：{{items.studentSname}}</a>
+                                        <br/>
+                                    </td>
+                                    <td class="project-people">
+                                        <span v-if="items.firstScore>=3" style="color:black">看图写话引入评分：{{items.firstScore}}</span>
+                                        <span v-if="items.firstScore<3" style="color:red">看图写话引入评分：{{items.firstScore}}</span>
+                                        <br/>
+                                    </td>
+                                    <td class="project-people">
+                                        <span  v-if="items.firstScore>=3" style="color:black">看图写话描述评分：{{items.secondScore}}</span>
+                                        <span  v-if="items.firstScore<3" style="color:red">看图写话描述评分：{{items.secondScore}}</span>
+                                        <br/>
+                                    </td>
+                                    <td class="project-people">
+                                        <span v-if="items.firstScore>=3" style="color:black">看图写话发散评分：{{items.thirdScore}}</span>
+                                        <span  v-if="items.firstScore<3" style="color:red">看图写话发散评分：{{items.thirdScore}}</span>
+                                        <br/>
+                                    </td>
+                                    <td class="project-people">
+                                        <span v-if="items.finishCheck==1">是否完成：完成</span>
+                                        <span v-if="items.finishCheck==0">是否完成：未完成</span>
+                                        <br/>
+                                    </td>
+                                    <td class="project-actions">
+                                        <button  v-on:click="lookTaskOne(items)" type="button" class="btn btn-success">查看</button>
+                                        <button  v-on:click="changestuTaskScore(items)" type="button" class="btn btn-warning">修改</button>
+                                        <button  v-on:click="deleteStuTaskScore(items)"   type="button" class="btn btn-danger">删除</button>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        修改班级任务-->
+        <div class="modal fade" id="changeTaskScore" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="change2">删除的班级任务信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label  for="FileName4" class="col-form-label"> 故事引入分数： </label>
+                                <input v-model="TaskFirstScore" type="text" autofocus class="form-control" id="FileName4">
+                                <label  class="col-form-label"> 故事描述分数： </label>
+                                <input v-model="TaskSecondScore" type="text" autofocus class="form-control" id="stuSnameNew2">
+                                <label  class="col-form-label"> 故事发散分数： </label>
+                                <input v-model="TaskThirdScore" type="text" autofocus class="form-control" id="stuSnameNew">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="changeClassTaskScoreClick()" class="btn btn-primary" id="classStuScorechange">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteStuTaskScore" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="change">删除的学生任务信息</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label  for="FileName4" class="col-form-label"> 学生用户名：{{deleteStuTask.studentSname}} </label>
+                                <div></div>
+                                <label  for="FileName4" class="col-form-label"> 故事引入分数：{{deleteStuTask.firstScore}} </label>
+                                <div></div>
+<!--                                <input v-model="TaskFirstScore" type="text" autofocus class="form-control" id="FileName7">-->
+                                <label  class="col-form-label"> 故事描述分数： {{deleteStuTask.secondScore}}</label>
+                                <div></div>
+
+                                <label  class="col-form-label"> 故事发散分数：{{deleteStuTask.thirdScore}} </label>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" v-on:click="deleteClassTaskScoreClick()" class="btn btn-primary" id="deleteClassTaskScoreClick">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!--    <script>-->
+<!--       // $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};-->
+<!--    </script>-->
+<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+</body>
+<script>
+    var vm = new Vue({
+        el: ".zxxc_classRecord",
+        data: {
+            classes:[],
+            classTask:[],
+            stuTask:[],
+            answer:"",
+            classTaskdelete:"",
+            compoTitle:"",
+            compoword:"",
+            composentence:"",
+            StuTaskScore:"",
+            TaskFirstScore:"",
+            TaskThirdScore:"",
+            TaskSecondScore:"",
+            deleteStuName:"",
+            deleteStuTaskId:"",
+            deleteStuTask:""
+        },
+        methods: {
+            classStart:function(){
+                axios.post('/ClassRecord/getClasses',null).then(res =>{
+
+                   this.classes=res.data;
+
+                    console.log("搜索到的教师名下班级:"+this.classes[0]);
+                    console.log(this.classes[0]);
+                });
+            },
+            classCheck:function(classes){
+                const params = {
+                    ClassId:classes.classId
+                };
+                console.log("查看班级："+classes.classId);
+                axios.post('/ClassRecord/getClassTask',null,{ params: params }).then(res =>{
+                    this.classTask=res.data;
+                    console.log("搜索到的班级下任务:"+this.classTask[0]);
+                    console.log(this.classTask[0]);
+                });
+                document.getElementById("classTaskes").style.display='inline';
+                console.log("classTaskes的display："+document.getElementById("classTaskes").style.display)
+                document.getElementById("classchose").style.display='none';
+            },
+            classTaskCheck:function(classTask){
+                const params = {
+                    ClassTaskId:classTask.classTaskId
+                };
+                console.log("查看班级任务："+classTask.classTaskId);
+                axios.post('/ClassRecord/getStuTask',null,{ params: params }).then(res =>{
+                    this.stuTask=res.data;
+                    console.log("搜索到的班级任务下的学生任务:"+this.stuTask[0]);
+                    console.log(this.stuTask[0]);
+                });
+                document.getElementById("classTaskes").style.display='none';
+                document.getElementById("stuTaskCheck").style.display='inline';
+                console.log("stuTaskCheck的display："+document.getElementById("stuTaskCheck").style.display)
+
+            },
+            classTaskDeleteCheck:function(items){
+                this.classTaskdelete=items;
+                this.compoTitle=items.compositionTitle;
+                this.composentence=items.compositionSentence;
+                this.compoword=items.compositionWord;
+                console.log("classTaskDeleteCheck:");
+                console.log(typeof (this.classTaskdelete));
+                console.log(this.compoTitle);
+                $("#deleteClassTask").modal("show");
+            },
+            deleteClassTaskClick:function(){
+                console.log("DeleteClassTaskClick");
+                const params = {
+                    ClassTaskId:this.classTaskdelete.classTaskId
+                }
+                $("#deleteClassTask").modal("hide");
+                axios.post('/ClassRecord/deleteClassTask',null,{params:params}).then(res=>{
+                    this.classTask=this.classTask.filter(function(items){
+                        return items.classTaskId!==params.ClassTaskId;
+                    });
+                });
+            },
+            changestuTaskScore:function(items){
+                this.StuTaskScore=items;
+                $("#changeTaskScore").modal("show");
+            },
+            changeClassTaskScoreClick:function(){
+                const params = {
+                    studentTaskId:this.StuTaskScore.studentTaskId,
+                    classTaskId:this.StuTaskScore.classTaskId,
+                    finishCheck:this.StuTaskScore.finishCheck,
+                    studentSname:this.StuTaskScore.studentSname,
+                    firstScore:this.TaskFirstScore,
+                    secondScore:this.TaskSecondScore,
+                    thirdScore:this.TaskThirdScore
+                }
+                $("#changeTaskScore").modal("hide");
+
+                axios.post('/ClassRecord/changeTaskScore',null,{params:params}).then(res=>{
+                    for(i=0;i<this.stuTask.length;i++){
+                        if(this.stuTask[i].studentTaskId==params.studentTaskId){
+                            this.stuTask[i].firstScore=params.firstScore;
+                            this.stuTask[i].secondScore=params.secondScore;
+                            this.stuTask[i].thirdScore=params.thirdScore;
+                        }
+                    }
+                });
+            },
+            deleteStuTaskScore:function(items){
+                this.deleteStuName=items.studentSname;
+                this.deleteStuTaskId=items.studentTaskId;
+                this.deleteStuTask=items;
+                $("#deleteStuTaskScore").modal("show");
+
+            },
+            deleteClassTaskScoreClick:function(){
+                const params = {
+                    studentTaskId:this.deleteStuTaskId
+                }
+                $("#deleteStuTaskScore").modal("hide");
+
+                axios.post('/ClassRecord/deleteStuTaskByTaskId',null,{params:params}).then(res=>{
+                    this.stuTask=this.stuTask.filter(function(items){
+                        return items.studentTaskId!==params.deleteStuTaskId;
+                    });
+                });
+            },
+            lookTaskOne:function(items){
+                console.log("lookTaskOne,查看一个记录,studentTaskId");
+                const params={
+                    stuTaskId:items.studentTaskId
+                }
+                axios.post('/ClassRecord/LookStuTaskOne',null,{params:params}).then(res=>{
+                    location.href='/report_detail.html';
+                });
+            }
+        },
+        mounted(){
+            document.getElementById("classTaskes").style.display='none';
+            document.getElementById("classchose").style.display='inline';
+            document.getElementById("stuTaskCheck").style.display='none';
+            this.classStart();
+        }
+    });
+
+
+
+
+</script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/projects.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:44 GMT -->
+</html>

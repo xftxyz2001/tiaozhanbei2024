@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:17:47 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 个人资料</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <link rel="stylesheet" href="http://localhost:8080/bootstrap5.0.1/bootstrap.min.css" >
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <style type="text/css">
+        * {font-family:arial,simsun !important;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="zxxc">
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInRight">
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>看图说话图片资料</h5>
+                    </div>
+                    <div>
+                        <div class="ibox-content no-padding border-left-right">
+                            <img  id="img_zxxc" alt="image" class="img-responsive" src="/img/VCG2.jpg">
+                        </div>
+                        <div class="ibox-content profile-content">
+                            <h4><strong>看图写话</strong></h4>
+                            <!--                            <p><i class="fa fa-map-marker"></i> 上海市闵行区绿地科技岛广场A座2606室</p>-->
+                            <h5>池塘里的小女孩</h5>
+                            <p>
+                                小女孩在和河中的睡莲上做什么呢？
+                            </p>
+                            <div class="user-button">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 赞助</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" >
+                <div class="ibox float-e-margins" >
+                    <div class="col-sm-12">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>设置看图写话的教学目标内容</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="form_wizard.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="form_wizard.html#">选项1</a>
+                                        </li>
+                                        <li><a href="form_wizard.html#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content" style="  height: 583px!important;" >
+
+
+                                <form id="form" action="index_stories.html" class="wizard-big" style="height: 583px!important;">
+
+                                    <fieldset id="first_fieldset" style="height: 400px">
+                                        <h1>情景构建教学内容</h1>
+                                        <div class="row">
+
+                                            <div class="col-sm-8" >
+                                                <div class="form-group">
+                                                    <label>字词</label>
+                                                    <input v-model="word"  name="word" type="text" class="form-control"/>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneWord1">
+                                                    <label class="form-check-label" for="SceneWord1">
+                                                        情景构建引入
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneWord2" checked>
+                                                    <label class="form-check-label" for="SceneWord2">
+                                                        情景构建描述
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneWord3" checked>
+                                                    <label class="form-check-label" for="SceneWord3">
+                                                        情景构建发散
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>句式</label>
+                                                    <input v-model="sentence" id="password" name="password" type="text" class="form-control "/>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneSentence1">
+                                                    <label class="form-check-label" for="SceneSentence1">
+                                                        情景构建引入
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneSentence2" checked>
+                                                    <label class="form-check-label" for="SceneSentence2">
+                                                        情景构建描述
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="SceneSentence3" checked>
+                                                    <label class="form-check-label" for="SceneSentence3">
+                                                        情景构建发散
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <div style="margin-top: 20px">
+                                                        <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset id="second_fieldset" style="display: none;height: 400px">
+                                        <h1>看图写话内容</h1>
+                                        <div class="row">
+                                            <div class="col-sm-8" >
+                                                <div class="form-group">
+                                                    <label>字词</label>
+                                                    <input  v-model="courtesyWord" style="width: 500px;" name="word" type="text" class="form-control"/>
+
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionWord1">
+                                                    <label class="form-check-label" for="SceneWord1">
+                                                        图片故事引入
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionWord2" checked>
+                                                    <label class="form-check-label" for="SceneWord2">
+                                                        图片故事描述
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionWord3" checked>
+                                                    <label class="form-check-label" for="SceneWord3">
+                                                        图片故事发散
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>句式</label>
+                                                    <input v-model="languageSentence" style="width: 500px;" name="password" type="text" class="form-control "/>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionSentence1">
+                                                    <label class="form-check-label" for="SceneWord1">
+                                                        图片故事引入
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionSentence2" checked>
+                                                    <label class="form-check-label" for="SceneWord2">
+                                                        图片故事描述
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CompositionSentence3" checked>
+                                                    <label class="form-check-label" for="SceneWord3">
+                                                        图片故事发散
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <div style="margin-top: 20px">
+                                                        <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset  id="third_fieldset" style="display: none;height: 400px">
+                                        <h1>情景构建、看图写话主题</h1>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>情景构建主题</label>
+                                                <input v-model="talk_title" id="communicate_topic" style="width: 500px;"  type="text" class="form-control required">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>看图写话主题</label>
+                                                <input v-model="write_title" id="write_topic" style="width: 500px;"  type="text" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset  id="forth_fieldset" style="display: none;width: 830px;!important;">
+                                        <!--                                             <div style="dispaly:flex;height:500px" >-->
+                                        <!--                                                <iframe id="iframe_zxxc_profile" src="http://localhost:8080/class_chose.html" frameBorder="0" width="100%" scrolling="yes" height="100%">-->
+                                        <!--                                                </iframe>-->
+                                        <!--                                             </div>-->
+                                        <div class="wrapper wrapper-content">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="ibox float-e-margins">
+                                                        <div class="ibox-content mailbox-content">
+                                                            <div class="file-manager">
+                                                                <!--                            <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">写信</a>-->
+                                                                <div class="space-25"></div>
+                                                                <h5>班级</h5>
+                                                                <ul class="folder-list m-b-md" style="padding: 0">
+                                                                    <li v-for="(items,index) in stu_classes" :index="index" >
+                                                                        <i class="fa fa-certificate" ></i> {{items}} <input type="checkbox" class="i-checks" v-on:click="class_click(items)"/>
+
+
+                                                                    </li>
+                                                                </ul>
+
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-9 animated fadeInRight">
+                                                    <div class="mail-box-header">
+
+                                                        <form method="get" action="http://www.zi-han.net/theme/hplus/index.html" class="pull-right mail-search">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control input-sm" name="search" placeholder="搜索学生学号">
+                                                                <div class="input-group-btn">
+                                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                                        搜索
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <h2>班级内学生</h2>
+
+                                                    </div>
+                                                    <div class="mail-box">
+
+                                                        <table class="table table-hover table-mail">
+                                                            <tbody>
+                                                            <tr class="unread" v-for="(item,index) in students" :index="index">
+                                                                <td class="check-mail">
+                                                                    <input type="checkbox" class="i-checks">
+                                                                </td>
+                                                                <td class="mail-ontact"><a href="mail_detail.html">1</a>
+                                                                </td>
+                                                                <td class="mail-subject"><a href="mail_detail.html">{{item[0]}}</a>
+                                                                </td>
+<!--                                                                <td class="">202100001</i>-->
+<!--                                                                </td>-->
+<!--                                                                <td class="text-right mail-date">昨天 10:20</td>-->
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div style="width: 10px;display: block">
+
+                                    </div>
+                                    <button v-on:click="click_pre" type="button" class="btn btn-secondary">上一步</button>
+
+                                    <button v-on:click="click_next"  type="button" class="btn btn-success">下一步</button>
+                                    <!--                                        <div style="width: 300px;height: 100px"></div>-->
+                                    <button v-on:click="class_task"  id="last_button_iframe"  style="display:none" type="button" class="btn btn-warning">班级发布</button>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div></div>
+<script src="./js/vue.js"></script>
+<script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+<!--    <script type="text/javascript" src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>-->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+<script src="js/demo/peity-demo.min.js"></script>
+
+
+
+
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/staps/jquery.steps.min.js"></script>
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/plugins/validate/messages_zh.min.js"></script>
+<script src="js/plugins/layer/layer.min.js"></script>
+<script src="js/hplus.min.js?v=4.1.0"></script>
+<script type="text/javascript" src="js/contabs.min.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<script>
+    // $(document).ready(function(){$("#wizard").steps();$("#form").steps({bodyTag:"fieldset",onStepChanging:function(event,currentIndex,newIndex){if(currentIndex>newIndex){return true}if(newIndex===3&&Number($("#age").val())<18){return false}var form=$(this);if(currentIndex<newIndex){$(".body:eq("+newIndex+") label.error",form).remove();$(".body:eq("+newIndex+") .error",form).removeClass("error")}form.validate().settings.ignore=":disabled,:hidden";return form.valid()},onStepChanged:function(event,currentIndex,priorIndex){if(currentIndex===2&&Number($("#age").val())>=18){$(this).steps("next")}if(currentIndex===2&&priorIndex===3){$(this).steps("previous")}},onFinishing:function(event,currentIndex){var form=$(this);form.validate().settings.ignore=":disabled";return form.valid()},onFinished:function(event,currentIndex){var form=$(this);form.submit()}}).validate({errorPlacement:function(error,element){element.before(error)},rules:{confirm:{equalTo:"#password"}}})});
+    var vm = new Vue({
+        el: ".zxxc",
+        data: {
+            title:'设置看图写话的教学目标内容',
+            id:' ',
+            password:' ',
+            codeImg:'',
+            word:'test_word1',
+            sentence:'test_sentence',
+            grammer:'grammer',
+            tune:'test_tune',
+            courtesyWord:'courtesyWord',
+            languageSentence:'languageSentence',
+            talk_title:'tailk_title',
+            write_title:'write_title',
+            clickcount:1,
+            students:[["zxxc",1],["lyt",1],["yx",2]],
+            stu_classes:[1,2],
+            class_sum:[]
+        },
+        methods: {
+            login:function(){
+                console.log(this.id);
+                const params = {
+                    id: this.id,
+                    password: this.password
+                };
+                axios.post('/login/LoginSuccess', null, { params: params }).then(res => {
+                    // console.log(res.getItem("role"))
+                    if(res.data=="1"){
+                        location.href = "/index_student.html";
+                    }else if(res.data=='2'){
+                        // console.log(sessionStorage.getItem("name"));
+                        location.href='/index_teacher.html';
+                    }
+
+                });
+            },
+            click_next:function(){
+                this.clickcount= this.clickcount+1;
+                this.click_count1();
+
+            },
+            click_pre:function(){
+                this.clickcount= this.clickcount-1;
+                this.click_count1();
+            },
+            class_click:function(num){
+
+                if (this.class_sum.indexOf(num) === -1) {
+                    this.class_sum.push(num);
+
+                }else if(this.class_sum.indexOf(num) >=0){
+                    this.class_sum=this.class_sum.filter(item => item !== num);
+                }
+
+
+                console.log(this.class_sum);
+            },
+            class_task:function(){
+
+                Strclass=this.stu_classes.toString();
+
+                const params = {
+                    word:this.word,
+                    sentence:this.sentence,
+                    grammer:this.grammer,
+                    languageSentence:this.languageSentence,
+                    talkTitle:this.talk_title,
+                    writeTitle:this.write_title,
+                    picture: this.codeImg,
+                    classes:Strclass,
+                    courtesyWord:this.courtesyWord,
+                    tune:this.tune
+                };
+                axios.post('/submit/get_push', null, { params: params }).then(res => {
+                    // console.log(res.getItem("role"))
+                    if(res.data=="1"){
+                        location.href = "/profile.html";
+                    }else if(res.data=='2'){
+                        // console.log(sessionStorage.getItem("name"));
+                        location.href='/index_teacher.html';
+                    }
+
+                });
+            },
+            getPic:function(){
+
+                document.getElementById("img_zxxc").src="img/"+this.codeImg;
+            },
+            click_count1:function(){
+                console.log(this.clickcount)
+                if(this.clickcount==1){
+                    document.getElementById("second_fieldset").style.display="none";
+                    document.getElementById("first_fieldset").style.display="inline";
+                }else if (this.clickcount==2){
+                    document.getElementById("first_fieldset").style.display="none";
+                    document.getElementById("third_fieldset").style.display="none";
+                    document.getElementById("second_fieldset").style.display="inline";
+                }else if(this.clickcount==3){
+                    document.getElementById("second_fieldset").style.display="none";
+                    document.getElementById("forth_fieldset").style.display="none";
+                    document.getElementById("third_fieldset").style.display="inline";
+                }else if(this.clickcount==4){
+                    document.getElementById("third_fieldset").style.display="none";
+                    document.getElementById("last_button_iframe").style.display="inline";
+                    document.getElementById("forth_fieldset").style.display="inline";
+                }
+            }
+        },
+        watch:{
+            word:function (){
+                console.log(this.word)
+            },
+            clickcount:function(){
+              console.log(this.clickcount)
+            },
+            click_count:function(){
+                console.log(this.clickcount)
+                if(this.clickcount==1){
+                    document.getElementById("second_fieldset").style.display="none";
+                    document.getElementById("first_fieldset").style.display="inline";
+                }else if (this.clickcount==2){
+                    document.getElementById("first_fieldset").style.display="none";
+                    document.getElementById("third_fieldset").style.display="none";
+                    document.getElementById("second_fieldset").style.display="inline";
+                }else if(this.clickcount==3){
+                    document.getElementById("second_fieldset").style.display="none";
+                    document.getElementById("forth_fieldset").style.display="none";
+                    document.getElementById("third_fieldset").style.display="inline";
+                }else if(this.clickcount==4){
+                    document.getElementById("third_fieldset").style.display="none";
+                    document.getElementById("last_button_iframe").style.display="inline";
+                    document.getElementById("forth_fieldset").style.display="inline";
+                }
+            }
+
+        },
+
+        mounted() {
+            // console.log(window.location.href.split("?")[1].split("=")[1]);
+            this.codeImg="VCG"+ window.location.href.split("?")[1].split("=")[1]+".jpg";
+            // console.log(this.codeImg);
+            this.getPic();
+        },
+        created() {}
+    });
+</script>
+
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:21 GMT -->
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:47 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>跨模态图文课堂教学辅助评判系统</title>
+    <meta name="keywords" content="跨模态图文课堂教学辅助评判系统">
+    <meta name="description" content="跨模态图文课堂教学辅助评判系统">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="./js/vue.js"></script>
+    <script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+    <style type="text/css">
+        * {font-family:arial,simsun !important;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="zxxc_report_children_report">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+
+
+
+
+
+        <div class="row">
+            <div class="col-lg-4" style="width: 1000px">
+
+
+
+
+                <div class="ibox" style="display: inline" v-for="(items,index) in stuTasks">
+                    <div class="ibox-content">
+                        <div v-on:click="lookTaskOne(items)" class="btn-link">
+                            <h2>
+                                   {{tasks[index].compositionTitle}} :{{items.studentTaskId}}
+                            </h2>
+                            <h2 v-if="items.finishCheck==1" style="color:green">
+                                {{items.studentSname}}   已完成
+                            </h2>
+                            <h2 v-if="items.finishCheck==0" style="color:red">
+                                {{items.studentSname}}   未完成
+                            </h2>
+                            <div v-for="one in stuTaskPiece">
+                                <span v-if="one.studentTaskId==items.studentTaskId">{{one.taskPiece}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2>标签：</h2>
+                                <button v-if="items.firstScore>=3" class="btn btn-primary btn-xs" type="button">优秀</button>
+                                <button v-if="items.firstScore<3" class="btn btn-danger btn-xs" type="button">良好</button>
+                                <button v-if="items.secondScore>=3" class="btn btn-primary btn-xs" type="button">优秀</button>
+                                <button v-if="items.secondScore<3" class="btn btn-danger btn-xs" type="button">良好</button>
+                                <button v-if="items.thirdScore>=3" class="btn btn-primary btn-xs" type="button">优秀</button>
+                                <button v-if="items.thirdScore<3" class="btn btn-danger btn-xs" type="button">良好</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+<!--                <div class="ibox">-->
+<!--                    <div class="ibox-content">-->
+<!--                        <a href="article.html" class="btn-link">-->
+<!--                            <h2>-->
+<!--                                    半数用户弃用 Apple Music？苹果发话了-->
+<!--                                </h2>-->
+<!--                        </a>-->
+<!--                        <div class="small m-b-xs">-->
+<!--                            <strong>周 欣</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 3 小时前</span>-->
+<!--                        </div>-->
+<!--                        <p>-->
+<!--                            前不久，苹果公司高级副总裁 Eddy Cue 还在宣称 Apple Music 试用期用户超 1100 万，最近就有一份来自 MusicWatch 的调查报告，让人大跌眼镜。-->
+
+
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            MusicWatch 针对美国 5000 名 13 岁以上人群进行抽样调查，得出数据：约有 77% 的 iOS 用户知道 Apple Music，只有 11% 的用户正在使用它；而在已经注册 Apple Music 三个月免费试用服务的用户中，48% 表示已经弃用，61% 称已关闭 iTunes 中的自动订阅功能。-->
+<!--                        </p>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <h5>标签：</h5>-->
+<!--                                <button class="btn btn-primary btn-xs" type="button">调查</button>-->
+<!--                                <button class="btn btn-white btn-xs" type="button">用户</button>-->
+<!--                                <button class="btn btn-white btn-xs" type="button">Apple Music</button>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="small text-right">-->
+<!--                                    <h5>状态：</h5>-->
+<!--                                    <div> <i class="fa fa-comments-o"> </i> 36 评论 </div>-->
+<!--                                    <i class="fa fa-eye"> </i> 100 浏览-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    // 将vue挂载到id为home的根元素上
+
+    var vm = new Vue({
+        el: ".zxxc_report_children_report",
+        data: {
+
+            id:' ',
+            password:' ',
+            studentSname:"",
+            tasks:[],
+            stuTasks:"",
+            stuTaskPiece:""
+        },
+        methods: {
+
+            getTasks:function(){
+                console.log("加载写话任务");
+                axios.post('/getTask/getAllfinish', null, ).then(res => {
+                    console.log("getAllfinish")
+                    console.log(res.data);
+
+                    this.tasks=res.data;
+
+
+                });
+            },
+            getStuTaskRecord:function(){
+               const params={
+                   studentSname: this.studentSname
+               };
+                axios.post('/getTask/getStuTasks',null,{ params: params }).then(res =>{
+                    this.stuTasks=res.data;
+                    console.log("搜索到的班级下任务:");
+                    console.log(this.stuTasks);
+                });
+            },
+            getStuTaskPiecesRecord:function(){
+                const params={
+                    studentSname:this.studentSname
+                }
+                axios.post('/getTask/getStuTasksPieces',null,{ params: params }).then(res =>{
+                    this.stuTaskPiece=res.data;
+                    console.log("搜索到的班级下任务每一条记录:");
+                    console.log(this.stuTaskPiece);
+                });
+            },
+            getName:function(){
+                axios.post('/login/getSname', null).then(res => {
+                    console.log(res.data)
+                    this.studentSname=res.data;
+                });
+            },
+            lookTaskOne:function(items){
+                console.log("lookTaskOne,查看一个记录,studentTaskId");
+                const params={
+                    stuTaskId:items.studentTaskId
+                }
+                axios.post('/ClassRecord/LookStuTaskOne',null,{params:params}).then(res=>{
+                    location.href='/report_detail.html';
+                });
+            }
+        },
+        mounted() {
+            this.getName();
+            this.getTasks();
+            this.getStuTaskRecord();
+            this.getStuTaskPiecesRecord();
+            console.log(0.0);
+        },
+        // created() {},
+    });
+</script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<!-- Mirrored from www.zi-han.net/theme/hplus/blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:47 GMT -->
+</html>

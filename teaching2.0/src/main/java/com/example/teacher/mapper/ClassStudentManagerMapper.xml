@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.teacher.mapper.ClassStudentManagerMapper">
+
+        <select id="queryClassStuByClassId" resultType="com.example.teacher.entity.classStu">
+            select * from student where classId=#{ClassId}
+        </select>
+
+    <update id="changeClassName">
+        update class set className=#{classNameNew} where classId=#{classChangeId};
+    </update>
+
+    <update id="changeClassStuInformation">
+        update student set studentSname=#{studentSname},studentName=#{studentName},studentPassword=#{studentPassword} where studentSname=#{studentSnameChange};
+    </update>
+
+    <insert id="addClass">
+        insert into class values(#{ClassCreateId},#{ClassCreateName},#{teacherSname})
+    </insert>
+
+    <insert id="addClassStu">
+        insert into student values(#{studentSname},#{studentName},#{studentPassword},#{classId})
+    </insert>
+
+    <select id="getClassTaskIdByClassId" resultType="com.example.teacher.entity.TaskOne">
+        select * from classtask where classId=#{classId}
+    </select>
+
+    <select id="getClassStuTaskByClassTaskId" resultType="com.example.teacher.entity.studentTaskOne">
+        select * from studentTask where classTaskId=#{ClassTaskId}
+    </select>
+
+    <delete id="deleteClassfromClassStuTaskPiece">
+        delete from studenttaskpiece where StudentTaskId=#{StudentTaskId}
+    </delete>
+
+    <delete id="deleteClassfromClassStuTask">
+        delete from studenttask where StudentTaskId=#{StudentTaskId}
+    </delete>
+
+    <delete id="deleteClassfromClassTask">
+        delete from classtask where classTaskId=#{classTaskId}
+    </delete>
+
+    <delete id="deleteClassfromStudent">
+        delete from student where classId=#{classId}
+    </delete>
+
+    <delete id="deleteClassfromClass">
+        delete from class where classId=#{classId}
+    </delete>
+
+    <select id="getStuTaskByStuSname" resultType="com.example.teacher.entity.studentTaskOne">
+        select * from studenttask where studentSname=#{StudentSname}
+    </select>
+
+    <delete id="deleteStuTaskfromstudentTask">
+        delete from studenttask where classTaskId=#{classTaskId}
+    </delete>
+
+    <delete id="deleteClassStufromStudent">
+        delete from student where studentSname=#{studentSname}
+    </delete>
+
+    <select id="searchCourseTeach" resultType="int">
+            select CourseTeach_Id  from TeacherCourse where  Teacher_Sname=TeacherSname
+    </select>
+
+    <insert id="addClassCourse" parameterType="string">
+        insert into ClassCourse values(0,#{CourseTeachId},#{ClassId})
+    </insert>
+
+<!--    <select id="searchDetail" parameterType="String" resultType="com.example.teacher.entity.TaskDetail">-->
+<!--        select * from taskdetail where id=#{id} order by id asc;-->
+<!--    </select>-->
+
+<!--    <insert id="writeDetail"  parameterType="com.example.teacher.entity.TaskDetail"   >-->
+<!--        insert into taskdetail value(#{id},#{QSsentence},#{turncount})-->
+<!--    </insert>-->
+<!--    <select id="queryById"  parameterType="String" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where id= #{id}-->
+<!--    </select>-->
+
+<!--    <insert id="add" parameterType="com.example.teacher.entity.UserLogin">-->
+<!--        insert into roles values (#{username},#{password})-->
+<!--    </insert>-->
+
+<!--    <select id="queryByName" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where username = #{username}-->
+<!--    </select>-->
+
+</mapper>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title></title>
+</head>
+<body>
+<div class="col-sm-6">
+
+    <div>
+        <audio controls autoplay></audio>
+        <input onclick="startRecording()" type="button" value="录音" />
+        <input onclick="stopRecording()" type="button" value="停止" />
+        <input onclick="playRecording()" type="button" value="播放" />
+        <input onclick="uploadAudio()" type="button" value="提交" />
+    </div>
+</div>
+    <script type="text/javascript" src="js/HZRecorder.js"></script>
+
+    <script>
+        var recorder;
+        var audio = document.querySelector('audio');
+        function startRecording() {
+            HZRecorder.get(function (rec) {
+                recorder = rec;
+                recorder.start();
+            });
+        }
+        function stopRecording() {
+            recorder.stop();
+        }
+        function playRecording() {
+            recorder.play(audio);
+        }
+        function uploadAudio() {
+            recorder.upload("http://localhost:8080/****/UploadVideoServlet", function (state, e) {
+                switch (state) {
+                    case 'uploading':
+                        break;
+                    case 'ok':
+                        alert("上传成功");
+                        break;
+                    case 'error':
+                        alert("上传失败");
+                        break;
+                    case 'cancel':
+                        alert("上传被取消");
+                        break;
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

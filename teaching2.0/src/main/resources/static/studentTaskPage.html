@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:17:47 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 个人资料</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    <link rel="stylesheet" href="http://localhost:8080/bootstrap5.0.1/bootstrap.min.css" >
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <style type="text/css">
+        * {font-family:arial,simsun !important;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="zxxc_taskpage">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-4" style="width: 66%">
+
+                <div class="ibox" style="display: flow" v-for="(id ,index ) in tasks"  >
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">NEW</span>
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content" >
+                        <div class="team-members">
+                            <a href="#"><img alt="member" class="img-circle" src="img/a5.jpg">
+                            </a>
+
+                        </div>
+                        <h3 class="J_menuItem" href="question_advanced.html" style=" cursor:pointer;"  v-on:click="prictureSeeStart(id)">看图写话</h3>
+                        <p>
+                            看图写话主题：{{id.compositionTitle}}   情境构建主题：{{id.sceneTitle}}
+                        </p>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<script src="./js/vue.js"></script>
+<script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+<!--    <script type="text/javascript" src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>-->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+<script src="js/demo/peity-demo.min.js"></script>
+
+
+
+
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/staps/jquery.steps.min.js"></script>
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/plugins/validate/messages_zh.min.js"></script>
+<script src="js/plugins/layer/layer.min.js"></script>
+<script src="js/hplus.min.js?v=4.1.0"></script>
+<script type="text/javascript" src="js/contabs.min.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+
+
+</body>
+<script>
+    // 将vue挂载到id为home的根元素上
+
+    var vm = new Vue({
+        el: ".zxxc_taskpage",
+        data: {
+
+            id:' ',
+            password:' ',
+            name2:"",
+            tasks:[]
+        },
+        methods: {
+            login:function(){
+                console.log(this.id);
+                const params = {
+                    id: this.id,
+                    password: this.password
+                };
+                axios.post('/login/LoginSuccess', null, { params: params }).then(res => {
+                    // console.log(res.getItem("role"))
+                    if(res.data=="1"){
+                        location.href = "/index_teacher.html";
+                    }else if(res.data=='2'){
+                        // console.log(sessionStorage.getItem("name"));
+                        location.href='/index_student.html';
+                    }
+
+                });
+            },
+            getTasks:function(){
+                console.log("加载写话任务");
+                axios.post('/getTask/getAll', null, ).then(res => {
+                    // console.log(res.getItem("role"))
+                    console.log(res.data);
+
+                    this.tasks=res.data;
+
+
+                });
+            },
+            prictureSeeStart:function(task){
+                console.log("开始写话任务");
+                const params = {
+                    studentTaskId:"00000000000000000000",
+                    classTaskId:task.classTaskId,
+                    finishCheck:0,
+                    studentSname:this.id,
+                    firstScore:0,
+                    secondScore:0,
+                    thirdScore:0
+                };
+                console.log("params "+params);
+                axios.post('/getTask/startTask', null,  { params: params }).then(res => {
+                    // console.log(res.getItem("role"))
+                    location.href='/question_advanced.html';
+                    // console.log(res.data);
+                });
+            },
+            getName:function(){
+                axios.post('/login/getName', null).then(res => {
+                    console.log(res.data)
+                    this.name2=res.data;
+                });
+                axios.post('/login/getSname', null).then(res => {
+                    console.log(res.data)
+                    this.id=res.data;
+                });
+            },
+        },
+        mounted() {
+            this.getName();
+            this.getTasks();
+            console.log(0.0);
+        },
+        // created() {},
+    });
+</script>
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:18:21 GMT -->
+</html>

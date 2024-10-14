@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.teacher.mapper.StudentSearchMapper">
+
+
+    <select id="queryclassStudent"  resultType="com.example.teacher.entity.classStudent">
+        select class.classId,class.className,student.studentSname,student.studentName from student left join class on student.classId=class.classId order by class.classId
+    </select>
+
+    <select id="queryclassStudentbyTeacher" resultType="com.example.teacher.entity.classStudent">
+        select class.classId,class.className,student.studentSname,student.studentName from student left join class on student.classId=class.classId where class.teacherSname=#{teacherSname} order by class.classId
+    </select>
+    <select id="queryClassTaskByClassTaskId" resultType="com.example.teacher.entity.TaskOne">
+        select * from classtask where classTaskId=#{classTaskId}
+    </select>
+
+    <select id="queryClassTaskByStuTaskId" resultType="com.example.teacher.entity.ClassTask" >
+        select * from classtask where classTaskId in (select classTaskId from studenttask where studentTaskId =#{stuTaskId})
+    </select>
+
+    <select id="querystuTaskOneByStuTaskId" resultType="com.example.teacher.entity.studentTaskOne">
+        select classTaskId from studenttask where studentTaskId =#{stuTaskId}
+    </select>
+
+    <select id="queryTaskPieceByStuId" resultType="com.example.teacher.entity.StuTaskPiece">
+        select * from studenttaskpiece where studentTaskId in (select studentTaskId from studenttask where classTaskId=#{classTaskId} and studentSname=#{studentSname})
+    </select>
+
+    <select id="queryTaskPieceByStuTaskId"  resultType="com.example.teacher.entity.StuTaskPiece">
+        select * from studenttaskpiece where studentTaskId=#{StuTaskId} order by TaskPiece_id ASC
+    </select>
+
+    <select id="getStuTasksByStuSname" resultType="com.example.teacher.entity.studentTaskOne">
+        select * from studenttask where studentSname=#{studentSname};
+    </select>
+
+    <select id="getStuTaskPieceByStuSname" resultType="com.example.teacher.entity.StuTaskPiece">
+        select * from studenttaskpiece where StudentTaskId in(select studentTaskId from studenttask where studentSname=#{studentSname}) order by studentTaskId,TaskPiece_id ASC;
+    </select>
+
+    <update id="UpdateStuTaskFirstScore" >
+        update studenttask set firstScore=#{Score} where studentTaskId=#{StuTaskId}
+    </update>
+
+    <update id="UpdateStuTaskSecondScore" >
+        update studenttask set secondScore=#{Score} where studentTaskId=#{StuTaskId}
+    </update>
+
+    <update id="UpdateStuTaskThirdScore" >
+        update studenttask set thirdScore=#{Score} where studentTaskId=#{StuTaskId}
+    </update>
+
+<!--    <select id="searchDetail" parameterType="String" resultType="com.example.teacher.entity.TaskDetail">-->
+<!--        select * from taskdetail where id=#{id} order by id asc;-->
+<!--    </select>-->
+
+<!--    <insert id="writeDetail"  parameterType="com.example.teacher.entity.TaskDetail"   >-->
+<!--        insert into taskdetail value(#{id},#{QSsentence},#{turncount})-->
+<!--    </insert>-->
+<!--    <select id="queryById"  parameterType="String" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where id= #{id}-->
+<!--    </select>-->
+
+<!--    <insert id="add" parameterType="com.example.teacher.entity.UserLogin">-->
+<!--        insert into roles values (#{username},#{password})-->
+<!--    </insert>-->
+
+<!--    <select id="queryByName" resultType="com.example.teacher.entity.UserLogin">-->
+<!--        select * from roles where username = #{username}-->
+<!--    </select>-->
+
+</mapper>

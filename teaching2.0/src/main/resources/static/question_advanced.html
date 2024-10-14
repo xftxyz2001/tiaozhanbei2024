@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:16 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 高级表单</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="css/plugins/colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="css/plugins/cropper/cropper.min.css" rel="stylesheet"/>
+    <link href="css/plugins/switchery/switchery.css" rel="stylesheet"/>
+    <link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet"/>
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet"/>
+    <link href="css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <script type="text/javascript" src="js/HZRecorder.js"></script>
+    <script src="./js/vue.js"></script>
+    <script rtype="text/javascript" src="http://localhost:8080/js/axios.min.js"></script>
+    <style type="text/css">
+        * {font-family:simsun !important;}
+    </style>
+</head>
+
+<body class="gray-bg">
+
+<div class="zxxc_question">
+    <div class="wrapper wrapper-content animated fadeInRight"  >
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                             <div class="ibox-content no-padding border-left-right">
+                            <img alt="image" id="img_zxxc" class="img-responsive" src="img/VCG2.jpg">
+                            </div>
+                    </div>
+                    <div class="ibox-content">
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="col-sm-6">
+                        <div>
+                            <audio controls autoplay></audio>
+                            <input onclick="startRecording()" type="button" value="录音" />
+                            <input onclick="stopRecording()" type="button" value="停止" />
+                            <input onclick="playRecording()" type="button" value="播放" />
+                            <input onclick="uploadAudio()" type="button" value="提交" />
+                        </div>
+
+                    </div>
+                    <textarea  id="mytextarea"cols="60" v-model="answer" rows="7"></textarea>
+                    <div class="col-sm-6" style="padding-left: 35%">
+                        <button  id="last_button_iframe"  v-on:click="finishAndSubmit" type="button" class="btn btn-warning">完成提交</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                         <div>
+                            <div class="feed-activity-list">
+
+                                 <div  v-for="(items,index) in TaskPiece"   class="feed-element">
+                                    <a href="" class="pull-left">
+                                        <img v-if=" items.who==='robot'" alt="image" class="img-circle" src="img/robot.png">
+                                        <img v-if=" items.who==='children'" alt="image" class="img-circle" src="img/children.jpg">
+                                    </a>
+                                    <div class="media-body ">
+
+                                        <strong>{{items.taskPiece}}</strong>
+                                        <br>
+                                    </div>
+                                     <div v-for="curr in prompt" class="actions">
+                                         <!--                                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>-->
+                                         <a v-if="curr.turn==index" class="btn btn-xs btn-danger"><i class="fa fa-heart"></i>提示词：{{curr.passage}}</a>
+                                     </div>
+                                </div>
+
+                                <button id="NextQuestion"  v-on:click="nextQues()" type="button" class="btn btn-success btn-sm btn-block"> 继续 下一个问题</button>
+                                <button id="finishQuesClick"  v-on:click="finishClick()" type="button" class="btn btn-success btn-sm btn-block"> 回答完毕 全部提交</button>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">颜色选择</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group colorpicker-component demo demo-auto">
+                        <input type="text" value="" class="form-control" />
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+</body>
+
+<script>
+    var vm = new Vue({
+        el: ".zxxc_question",
+        data: {
+            TaskPiece:[],
+            TaskQuestion:[],
+            TaskAnswer:[],
+            TaskAppr:[],
+            answer:"",
+            prompt:[],
+            promptIndex:[],
+            codeImg:""
+        },
+        methods: {
+            getPic:function(){
+                axios.post('/submit/getPicture', null).then(res=>{
+                    console.log("getPicture",res.data.picture);
+                    this.codeImg=res.data.picture;
+                });
+            },
+            changePic:function(){
+
+                document.getElementById("img_zxxc").src="img/"+str(this.codeImg);
+                console.log("changePic：",ocument.getElementById("img_zxxc").src);
+            },
+            taskStart:function(){
+               // this.TaskPiece=sessionStorage.getItem('TaskPiece');
+               // console.log(sessionStorage.getItem('TaskPiece'));
+                axios.post('/getTask/startTaskTwice', null).then(res => {
+                    console.log(res.data)
+                    this.TaskPiece=res.data;
+                    turn=0;
+                    for(i=0;i<res.data.length;i++){
+                        //问题
+                        turn=0;
+                        this.TaskPiece[i]['who']="robot";
+                        if(this.TaskPiece[i].taskPiece.indexOf("####")!=-1){
+                            this.prompt.push({turn:i,passage:this.TaskPiece[i].taskPiece.substring(this.TaskPiece[i].taskPiece.indexOf("####")+4)});
+                            this.TaskPiece[i].taskPiece=this.TaskPiece[i].taskPiece.substring(0,this.TaskPiece[i].taskPiece.indexOf("####"));
+                            this.promptIndex.push(i);
+                        }
+                        //学生回答
+                        i=i+1;
+                        if(i>=res.data.length)break;
+                        this.TaskPiece[i]['who']="children";
+
+                        //评价
+                        i=i+1;
+                        if(i>=res.data.length)break;
+                        this.TaskPiece[i]['who']="robot";
+
+
+                    }
+                    console.log("梳理好的提示词列表");
+                    console.log(this.prompt);
+                    console.log("梳理好的TaskPiece列表：长度为"+this.TaskPiece.length);
+                    console.log(this.TaskPiece)
+                    if(this.TaskPiece.length%3==0){
+                        console.log("回答完成，评价给出，选择下一个");
+                        console.log(document.getElementById("NextQuestion").style.display);
+                        document.getElementById("NextQuestion").style.display='block';
+                        console.log(document.getElementById("NextQuestion").style.display);
+                    }else{
+                        // console.log(document.getElementById("NextQuestion").style.display);
+                        document.getElementById("NextQuestion").style.display='none';
+                        console.log(document.getElementById("NextQuestion").style.display);
+                    }
+                    if(this.TaskPiece[this.TaskPiece.length-1].taskPiece.indexOf("$$$$")!=-1){
+                        console.log("回答结束。");
+                        document.getElementById("NextQuestion").style.display='none';
+                        document.getElementById("finishQuesClick").style.display='block';
+                    }
+                });
+            },
+            finishAndSubmit:function(){
+                const params = {
+                    taskPiece:this.answer,
+                    studentTaskId:this.TaskPiece[0]["studentTaskId"],
+                    taskPiece_id:this.TaskPiece.length+1,
+                };
+                console.log("params "+params);
+                axios.post('/submit/SubmitAnswer', null,  { params: params }).then(res => {
+                    // console.log(res.getItem("role"))
+                    location.href='/question_advanced.html';
+                    // console.log(res.data);
+                });
+            },
+            nextQues:function(){
+                console.log("准备请求NextQuestionSubmit");
+                axios.post('/submit/NextQuestionSubmit',null).then(res =>{
+                    console.log("NextQuestionSubmit请求一次");
+                    location.href='/question_advanced.html';
+                });
+            },
+            finishClick:function(){
+                axios.post('/submit/FinishTaskSubmit',null).then(res =>{
+                    console.log("NextQuestionSubmit请求一次");
+                    location.href='/studentTaskPage.html';
+                });
+            }
+        },
+        mounted(){
+            document.getElementById("finishQuesClick").style.display='none';
+            this.taskStart();
+            this.getPic();
+            this.changePic();
+        }
+    });
+    var recorder;
+    var audio = document.querySelector('audio');
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+    }
+    function stopRecording() {
+        recorder.stop();
+    }
+    function playRecording() {
+        console.log(typeof(audio))
+        recorder.play(audio);
+    }
+    function uploadAudio() {
+        // const form = new FormData();
+        // var mp3Name = encodeURIComponent('audio_recording_' + new Date().getTime() + '.mp3');
+        // form.append('audio', audio, mp3Name); // 和普通form表单并无二致，后端接收到audio参数的文件，文件名为recorder.mp3
+        // // form.append('key', 'value'); // 其他参数
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('POST', 'http://localhost:8080/UploadVideo/UploadVideo');
+        //
+        // xhr.onreadystatechange = () => {
+        //   if (xhr.readyState == 4) {
+        //     if (xhr.status == 200) {
+        //       console.log('上传成功');
+        //     } else {
+        //       console.error('上传失败' + xhr.status);
+        //     }
+        //   }
+        // };
+        // xhr.send(form);
+        // alert("上传成功");
+        recorder.upload("http://localhost:8080/UploadVideo/UploadVideo", function (state, e) {
+            switch (state) {
+                case 'uploading':
+                    break;
+                case 'ok':
+                    // alert("上传成功");
+                    print(e.data);
+                    break;
+                case 'error':
+                    alert("上传成功");
+                    break;
+                case 'cancel':
+                    alert("上传被取消");
+                    break;
+            }
+        });
+        //  sleep(2000);
+        //  window.location.href="question_advanced1.html";
+    }
+
+    function sleep(numberMillis) {
+        var now = new Date();
+        var exitTime = now.getTime() + numberMillis;
+        while (true) {
+            now = new Date();
+            if (now.getTime() > exitTime){
+                return;
+            }
+        }
+    }
+
+
+</script>
+
+
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
+<script src="js/plugins/jsKnob/jquery.knob.js"></script>
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
+<script src="js/plugins/nouslider/jquery.nouislider.min.js"></script>
+<script src="js/plugins/switchery/switchery.js"></script>
+<script src="js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script src="js/plugins/cropper/cropper.min.js"></script>
+<script src="js/demo/form-advanced-demo.min.js"></script>
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/form_advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:28 GMT -->
+</html>
