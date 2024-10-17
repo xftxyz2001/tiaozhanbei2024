@@ -14,10 +14,6 @@ public class UserLoginServicesImpl implements UserLoginServicesI {
 
     @Autowired
     UserLoginMapper userLoginMapper;
-    @Override
-    public List<UserLogin> queryAll() {
-        return userLoginMapper.queryAll();
-    }
 
     @Override
     public Studentback studentqueryById(String id) {
@@ -28,17 +24,6 @@ public class UserLoginServicesImpl implements UserLoginServicesI {
     public TeacherBack teacherqueryByid(String id) {
         return userLoginMapper.teacherqueryByid(id);
 
-    }
-
-
-    @Override
-    public int add(UserLogin userLogin) {
-        return userLoginMapper.add(userLogin);
-    }
-
-    @Override
-    public UserLogin queryByName(String username) {
-        return userLoginMapper.queryByName(username);
     }
 
     @Override

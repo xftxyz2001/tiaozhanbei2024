@@ -391,17 +391,18 @@ public class SubmitController
     }
 
     static String getAccessToken() throws IOException {
-//        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-//        RequestBody body = RequestBody.create(mediaType, "grant_type=client_credentials&client_id=" + API_KEY
-//                + "&client_secret=" + SECRET_KEY);
-//        Request request = new Request.Builder()
-//                .url("https://aip.baidubce.com/oauth/2.0/token")
-//                .method("POST", body)
-//                .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//                .build();
-//        Response response = HTTP_CLIENT.newCall(request).execute();
-//        System.out.println(response.body());
-        return "24.7d20f43583888e8106f6c2c8413a7861.2592000.1717297021.282335-66138548";
+       MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+       RequestBody body = RequestBody.create(mediaType, "grant_type=client_credentials&client_id=" + API_KEY
+               + "&client_secret=" + SECRET_KEY);
+       Request request = new Request.Builder()
+               .url("https://aip.baidubce.com/oauth/2.0/token")
+               .method("POST", body)
+               .addHeader("Content-Type", "application/x-www-form-urlencoded")
+               .build();
+       Response response = HTTP_CLIENT.newCall(request).execute();
+       return response.body().string();
+    //    System.out.println(response.body());
+        // return "24.7d20f43583888e8106f6c2c8413a7861.2592000.1717297021.282335-66138548";
     }
     public void initTask(String id){
         PictureFirstSentence pictureFirstSentence=new PictureFirstSentence();

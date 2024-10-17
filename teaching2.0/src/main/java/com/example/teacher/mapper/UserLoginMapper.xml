@@ -5,24 +5,12 @@
 
 <mapper namespace="com.example.teacher.mapper.UserLoginMapper">
 
-    <select id="queryAll" resultType="com.example.teacher.entity.UserLogin">
-        select * from roles
-    </select>
-
     <select id="studentqueryById"  parameterType="String" resultType="com.example.teacher.entity.Studentback">
         select * from student where studentSname = #{id}
     </select>
 
     <select id="teacherqueryByid" parameterType="String" resultType="com.example.teacher.entity.TeacherBack">
         select * from teacher where  teachSname = #{teachSname }
-    </select>
-
-    <insert id="add" parameterType="com.example.teacher.entity.UserLogin">
-        insert into roles values (#{username},#{password})
-    </insert>
-
-    <select id="queryByName" resultType="com.example.teacher.entity.UserLogin">
-        select * from roles where username = #{username}
     </select>
 
     <insert id="addTeacher">
